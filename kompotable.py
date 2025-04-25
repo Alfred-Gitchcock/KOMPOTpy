@@ -1,9 +1,6 @@
-import numpy as np
 import pandas as pd
-import scipy as sp
 from scipy import constants as sc
 from bisect import bisect_left
-import time
 
 # boundaries of UV A, B and C in nm from https://www.ncbi.nlm.nih.gov/books/NBK304366/
 uva = (315, 400)
@@ -178,6 +175,6 @@ table = KOMPOT(data)
 int_flux_uva = table.get_integrated_flux(85,uva)
 int_flux_uvb = table.get_integrated_flux(85,uvb)
 int_flux_uvc = table.get_integrated_flux(85,uvc)
-print("Integrated flux at 85km in UV-A band: ", int_flux_uva)
-print("Integrated flux at 85km in UV-B band: ", int_flux_uvb)
-print("Integrated flux at 85km in UV-C band: ", int_flux_uvc)
+print("Integrated flux at 85km in UV-A band:", int_flux_uva, "erg_s^-1_cm^-2")
+print("Integrated flux at 85km in UV-B band:", int_flux_uvb, "erg_s^-1_cm^-2")
+print("Integrated flux at 85km in UV-C band:", int_flux_uvc, "erg_s^-1_cm^-2")
