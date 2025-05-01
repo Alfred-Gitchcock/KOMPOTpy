@@ -169,12 +169,24 @@ class KOMPOT:
         return integrated_flux
 
 # Example usage
-data = 'spectrum.dat'
-table = KOMPOT(data)
+data1 = 'spectrum80.dat'
+table1 = KOMPOT(data1)
 
-int_flux_uva = table.get_integrated_flux(85,uva)
-int_flux_uvb = table.get_integrated_flux(85,uvb)
-int_flux_uvc = table.get_integrated_flux(85,uvc)
-print("Integrated flux at 85km in UV-A band:", int_flux_uva, "erg_s^-1_cm^-2")
-print("Integrated flux at 85km in UV-B band:", int_flux_uvb, "erg_s^-1_cm^-2")
-print("Integrated flux at 85km in UV-C band:", int_flux_uvc, "erg_s^-1_cm^-2")
+data2 = 'spectrum_surf.dat'
+table2 = KOMPOT(data2)
+
+int_flux_uva1 = table1.get_integrated_flux(80,uva)
+int_flux_uvb1 = table1.get_integrated_flux(80,uvb)
+int_flux_uvc1 = table1.get_integrated_flux(80,uvc)
+
+int_flux_uva2 = table2.get_integrated_flux(80,uva)
+int_flux_uvb2 = table2.get_integrated_flux(80,uvb)
+int_flux_uvc2 = table2.get_integrated_flux(80,uvc)
+
+print("Integrated flux in 80km height run at 80km in UV-A band:", int_flux_uva1, "erg_s^-1_cm^-2")
+print("Integrated flux in 80km height run at 80km in UV-B band:", int_flux_uvb1, "erg_s^-1_cm^-2")
+print("Integrated flux in 80km height run at 80km in UV-C band:", int_flux_uvc1, "erg_s^-1_cm^-2")
+print("-----------------------------------------------------------------------------------------")
+print("Integrated flux in surface run at 80km in UV-A band:", int_flux_uva2, "erg_s^-1_cm^-2")
+print("Integrated flux in surface run at 80km in UV-B band:", int_flux_uvb2, "erg_s^-1_cm^-2")
+print("Integrated flux in surface run at 80km in UV-C band:", int_flux_uvc2, "erg_s^-1_cm^-2")
