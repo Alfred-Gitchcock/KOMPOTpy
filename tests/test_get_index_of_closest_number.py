@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from KOMPOTpy.kompotable import get_index_of_closest_number
 
@@ -15,4 +14,4 @@ def test_output():
 
     assert idx1 == 0
     assert idx2 == 10
-    assert idx3 == len(data + 1)
+    assert idx3 == len(data) - 1

@@ -98,7 +98,7 @@ def take_closest(dataframe, number):
     if pos == 0:
         return dataframe[0]
     if pos == len(dataframe):
-        return dataframe[-1]
+        return dataframe[len(dataframe) - 1]
     before = dataframe[pos - 1]
     after = dataframe[pos]
     if after - number < number - before:
@@ -125,7 +125,7 @@ def get_index_of_closest_number(dataframe, number):
 
     idx = dataframe.index[dataframe == closest_number]
 
-    return idx[0]
+    return int(idx[0])
 
 
 # defining class for KOMPOT tables
