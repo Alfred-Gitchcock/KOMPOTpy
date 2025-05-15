@@ -1,4 +1,4 @@
-pip install pandas
-pip install scipy
-pip install bisect
-pip install sphinx_rtd_theme
+pandas
+scipy
+bisect
+sphinx_rtd_theme
