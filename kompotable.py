@@ -130,6 +130,20 @@ def get_index_of_closest_number(dataframe, number):
 
 # defining class for KOMPOT tables
 class KOMPOT:
+
+    """
+    Class to work with KOMPOT tables. Input file path to read and work with KOMPOT output table.
+
+    KOMPOT.path = filepath
+    KOMPOT.file = kompot table as a pandas dataframe
+    KOMPOT.header = Column labels of table
+    KOMPOT.shape = shape of the kompot table
+    KOMPOT.photon_energies = sub-table containing just the photon energy bin columns
+
+    KOMPOT.get_integrated_flux = class method to calculate the integrated flux in a given wavelength range
+    and at a certain height (for more info see get_integrated_flux() docstring
+    """
+
     # boundaries of UV A, B and C in nm from https://www.ncbi.nlm.nih.gov/books/NBK304366/
     uva = (315, 400)
     uvb = (280, 315)
@@ -147,8 +161,23 @@ class KOMPOT:
 
     def get_integrated_flux(self, height, bounds):
 
+        """
+        Computes the integrated flux between bounds[0] and bounds[1] (in nm) at height (in km) within a KOMPOT table.
+
+        Parameters
+        ----------
+        height: Float, height at which to compute the integrated flux in km
+        bounds: Tuple of the form (lower_bound, upper_bound), containing boundaries of wavelength range (in nm) within
+                which to calculate the integrated flux
+
+        Returns
+        -------
+        integrated_flux: Float, integrated flux at height within wavelength-bounds.
+        """
+
         dataframe = self.file
         integrated_flux = 0
+        #bounds = getattr(KOMPOT, bounds) # work in progress
 
         height = height * 100000  # convert height to cm
         bounds = get_ev(bounds, tuple=True)  # convert bounds from wavelength to photon energy in eV
@@ -168,25 +197,27 @@ class KOMPOT:
 
         return integrated_flux
 
-# Example usage
-data1 = 'spectrum80.dat'
-table1 = KOMPOT(data1)
+if __name__ == "__main__":
 
-data2 = 'spectrum_surf.dat'
-table2 = KOMPOT(data2)
+    # Example usage
+    data1 = 'spectrum80.dat'
+    table1 = KOMPOT(data1)
 
-int_flux_uva1 = table1.get_integrated_flux(80,uva)
-int_flux_uvb1 = table1.get_integrated_flux(80,uvb)
-int_flux_uvc1 = table1.get_integrated_flux(80,uvc)
+    data2 = 'spectrum_surf.dat'
+    table2 = KOMPOT(data2)
 
-int_flux_uva2 = table2.get_integrated_flux(80,uva)
-int_flux_uvb2 = table2.get_integrated_flux(80,uvb)
-int_flux_uvc2 = table2.get_integrated_flux(80,uvc)
+    int_flux_uva1 = table1.get_integrated_flux(80,uva)
+    int_flux_uvb1 = table1.get_integrated_flux(80,uvb)
+    int_flux_uvc1 = table1.get_integrated_flux(80,uvc)
 
-print("Integrated flux in 80km height run at 80km in UV-A band:", int_flux_uva1, "erg_s^-1_cm^-2")
-print("Integrated flux in 80km height run at 80km in UV-B band:", int_flux_uvb1, "erg_s^-1_cm^-2")
-print("Integrated flux in 80km height run at 80km in UV-C band:", int_flux_uvc1, "erg_s^-1_cm^-2")
-print("-----------------------------------------------------------------------------------------")
-print("Integrated flux in surface run at 80km in UV-A band:", int_flux_uva2, "erg_s^-1_cm^-2")
-print("Integrated flux in surface run at 80km in UV-B band:", int_flux_uvb2, "erg_s^-1_cm^-2")
-print("Integrated flux in surface run at 80km in UV-C band:", int_flux_uvc2, "erg_s^-1_cm^-2")
+    int_flux_uva2 = table2.get_integrated_flux(80,uva)
+    int_flux_uvb2 = table2.get_integrated_flux(80,uvb)
+    int_flux_uvc2 = table2.get_integrated_flux(80,uvc)
+
+    print("Integrated flux in 80km height run at 80km in UV-A band:", int_flux_uva1, "erg_s^-1_cm^-2")
+    print("Integrated flux in 80km height run at 80km in UV-B band:", int_flux_uvb1, "erg_s^-1_cm^-2")
+    print("Integrated flux in 80km height run at 80km in UV-C band:", int_flux_uvc1, "erg_s^-1_cm^-2")
+    print("-----------------------------------------------------------------------------------------")
+    print("Integrated flux in surface run at 80km in UV-A band:", int_flux_uva2, "erg_s^-1_cm^-2")
+    print("Integrated flux in surface run at 80km in UV-B band:", int_flux_uvb2, "erg_s^-1_cm^-2")
+    print("Integrated flux in surface run at 80km in UV-C band:", int_flux_uvc2, "erg_s^-1_cm^-2")
