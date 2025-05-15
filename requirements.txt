@@ -1,4 +1,3 @@
 pandas
 scipy
-bisect
 sphinx_rtd_theme
