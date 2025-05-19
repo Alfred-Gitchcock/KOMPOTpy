@@ -187,13 +187,18 @@ class KOMPOT:
 
         height_index = get_index_of_closest_number(dataframe["Altitude_(cm)"], height)
 
-        for i in range(len(bins)):
+        for i in range(len(bins) - 1):
             if float(bins[i]) < bounds[0]:
                 pass
             elif float(bins[i]) > bounds[1]:
                 pass
             else:
-                integrated_flux += photon_energies.iloc[(height_index, i)]
+
+                flux_at_i = photon_energies.iloc[(height_index, i)] # flux in ith bin in eV/s/cm²/Hz
+                planck_const = sc.value("Planck constant in eV/Hz")  # converting from ev/s/cm²/Hz to eV/s/cm²/eV
+                bin_size = (float(bins[i + 1]) - float(bins[i])) # multiplying by bin range in eV (unit now eV/s/cm²)
+                erg = sc.value("electron volt") / 10**(-7) # eV in Joule / erg in Joule, conversion to erg/s/cm²
+                integrated_flux += flux_at_i / planck_const * bin_size * erg
 
         return integrated_flux
 
@@ -221,3 +226,6 @@ if __name__ == "__main__":
     print("Integrated flux in surface run at 80km in UV-A band:", int_flux_uva2, "erg_s^-1_cm^-2")
     print("Integrated flux in surface run at 80km in UV-B band:", int_flux_uvb2, "erg_s^-1_cm^-2")
     print("Integrated flux in surface run at 80km in UV-C band:", int_flux_uvc2, "erg_s^-1_cm^-2")
+    print("-----------------------------------------------------------------------------------------")
+
+    print("Integrated flux in 80km height run at 80km from 1 to 400 nm:", table1.get_integrated_flux(80,(1,400)), "erg_s^-1_cm^-2")
